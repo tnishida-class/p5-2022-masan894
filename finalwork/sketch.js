@@ -21,14 +21,37 @@ function draw() {
     strokeWeight(10);
     rect(350 + 5, 0, 350, 175);
     rect(0, 175 + 5, 700, 175);
+
+    //五芒星の描画
+    fill(255);
+    stroke(255);
+    strokeWeight(1);
+    star(550, 190, 15);
+
+    //七芒星の描画
+    s_star(525, 70, 22.5);
+    s_star(175, 260, 50);
+    s_star(610, 130, 22.5);
+    s_star(425, 160, 22.5);
+    s_star(525, 290, 22.5);
   } else if (flagNumber % 3 == 1) {
     //flagNumber変数が3n+1の時はニュージーランド国旗を描画
     unionJack(350, 175);
+    //背景色
     fill(1, 33, 105);
     stroke(1, 33, 105);
     strokeWeight(10);
     rect(350 + 5, 0, 350, 175);
     rect(0, 175 + 5, 700, 175);
+
+    //白い輪郭、赤い塗りつぶしの五芒星を描画
+    fill(200, 16, 46);
+    stroke(255);
+    strokeWeight(1.5);
+    star(525, 70, 22.5);
+    star(610, 130, 22.5);
+    star(425, 160, 22.5);
+    star(525, 290, 22.5);
   } else {
     //flagNumber変数が3n+2の時はツバル国旗を描画
     unionJack(350, 175);
@@ -37,17 +60,61 @@ function draw() {
     strokeWeight(10);
     rect(350 + 5, 0, 350, 175);
     rect(0, 175 + 5, 700, 175);
+
+    //黄色い五芒星を描画
+    fill(254, 221, 0);
+    stroke(254, 221, 0);
+    strokeWeight(1);
+    star(640, 45, 30);
+    star(640, 190, 30);
+    star(570, 240, 30);
+    star(380, 300, 30);
+
+    //黄色い逆さ五芒星を描画
+    r_star(570, 105, 30);
+    r_star(500, 125, 30);
+    r_star(500, 280, 30);
+    r_star(440, 230, 30);
+    r_star(440, 290, 30);
   }
 }
 
-function star() {
-  //星を描画する関数
+//五芒星を描画する関数
+function star(cx, cy, r) {
+  beginShape();
+  for (let i = 0; i < 5; i++) {
+    const theta = (TWO_PI * i * 2) / 5 - HALF_PI;
+    const x = cx + cos(theta) * r;
+    const y = cy + sin(theta) * r;
+    vertex(x, y);
+  }
+  endShape(CLOSE);
 }
-function r_star() {
-  //逆さの星を描画する関数
+
+//逆さ五芒星を描画する関数
+function r_star(cx, cy, r) {
+  beginShape();
+  for (let i = 0; i < 5; i++) {
+    const theta = (TWO_PI * i * 2) / 5 - HALF_PI - 120;
+    const x = cx + cos(theta) * r;
+    const y = cy + sin(theta) * r;
+    vertex(x, y);
+  }
+  endShape(CLOSE);
 }
-function s_star() {
-  // 7つトゲの星を描画する関数
+
+// 七芒星を描画する関数
+function s_star(cx, cy, r) {
+  {
+    beginShape();
+    for (let i = 0; i < 7; i++) {
+      const theta = (TWO_PI * i * 3) / 7 - HALF_PI;
+      const x = cx + cos(theta) * r;
+      const y = cy + sin(theta) * r;
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+  }
 }
 
 function unionJack(x, y) {
@@ -77,7 +144,7 @@ function unionJack(x, y) {
   line(x / 2, 0, x / 2, y);
   line(0, y / 2, x, y / 2);
   //赤い縦横線を描画
-  strokeWeight((x / 700) * 60);
+  strokeWeight((x / 700) * 55);
   stroke(red);
   line(x / 2, 0, x / 2, y);
   line(0, y / 2, x, y / 2);
